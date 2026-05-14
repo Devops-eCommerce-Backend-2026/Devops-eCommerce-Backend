@@ -4,9 +4,20 @@ export function dbConnection() {
   mongoose
     .connect(process.env.MONGO_URL)
     .then(() => {
-      console.log("DB Connected Succesfully");
+      console.log("✅ MongoDB Connected Successfully");
     })
     .catch((error) => {
-      console.log("DB Failed to connect", error);
+      console.error("❌ MongoDB Connection Failed:", error.message);
+      // Retry after 5 seconds
+      setTimeout(dbConnection, 5000);
     });
+
+  // Handle disconnection events
+  mongoose.connection.on('disconnected', () => {
+    console.warn('⚠️ MongoDB Disconnected');
+  });
+
+  mongoose.connection.on('error', (error) => {
+    console.error('🔴 MongoDB Error:', error.message);
+  });
 }
