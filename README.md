@@ -137,4 +137,12 @@ This project is licensed under the ISC License. See the LICENSE file for details
 
 Questions or feedback? Contact me at abdelrahmanabdelkader2002@gmail.com
 
-test webhook lần 2
+## Yêu cầu để chạy Jenkins Pipeline
+
+1. Cài Jenkins + Docker
+2. Cài plugin: Git, Docker Pipeline, Credentials
+3. Thêm credentials DockerHub vào Jenkins:
+   - ID: dockerhub-credentials
+   - Username: [dockerhub username]
+   - Password: [dockerhub access token]
+4. Tạo Pipeline job, trỏ vào repo này, branch: main
