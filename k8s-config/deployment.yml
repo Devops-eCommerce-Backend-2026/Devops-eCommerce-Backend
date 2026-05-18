@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-app
+  template:
+    metadata:
+      labels:
+        app: backend-app
+    spec:
+      containers:
+      - name: backend-app
+        image: devops-ecommerce-backend-app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MONGO_URL
+          value: "mongodb://mongo-service:27017/EcommerceDB"
+        livenessProbe:
+          httpGet:
+            path: /api/v1/products
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /api/v1/products
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
+          timeoutSeconds: 5
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-db
+  template:
+    metadata:
+      labels:
+        app: mongo-db
+    spec:
+      containers:
+      - name: mongo-db
+        image: mongo:6
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 27017
+        livenessProbe:
+          exec:
+            command:
+            - mongosh
+            - --eval
+            - "db.adminCommand('ping')"
+          initialDelaySeconds: 20
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            command:
+            - mongosh
+            - --eval
+            - "db.adminCommand('ping')"
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
+          timeoutSeconds: 5
+        volumeMounts:
+        - name: mongo-data
+          mountPath: /data/db
+      volumes:
+      - name: mongo-data
+        emptyDir: {}
