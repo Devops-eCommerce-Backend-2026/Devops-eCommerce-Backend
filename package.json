@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand"
   },
   "engines": {
     "node": "18.12.0"
@@ -29,5 +29,12 @@
     "slugify": "^1.6.6",
     "stripe": "^13.9.0",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "clearMocks": true
   }
 }
