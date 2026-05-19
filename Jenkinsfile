@@ -2,7 +2,12 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "jandzizjandy/ecommerce-backend:latest"
+        IMAGE_NAME = "devops-ecommerce-backend-app:${BUILD_NUMBER}"
+
+    }
+
+    tools {
+        nodejs 'nodejs18'  
     }
 
     stages {
@@ -45,8 +50,16 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Kubernetes') {
+            steps {
+        sh """
+            kubectl set image deployment/backend-app \
+                backend-app=${IMAGE_NAME}
+            kubectl rollout status deployment/backend-app --timeout=120s
+        """
     }
-
+    }
+    }
     post {
         success { echo '✅ Build & Push thành công!' }
         failure { echo '❌ Pipeline thất bại!' }
