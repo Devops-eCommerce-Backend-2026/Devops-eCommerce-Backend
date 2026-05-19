@@ -55,7 +55,7 @@ pipeline {
         """
     }
     }
-
+    }
     post {
         success { echo '✅ Build & Push thành công!' }
         failure { echo '❌ Pipeline thất bại!' }
