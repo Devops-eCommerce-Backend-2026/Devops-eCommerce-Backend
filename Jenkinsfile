@@ -6,6 +6,10 @@ pipeline {
 
     }
 
+    tools {
+        nodejs 'nodejs18'  
+    }
+
     stages {
         stage('Cleanup Workspace') {
             steps { cleanWs() }
