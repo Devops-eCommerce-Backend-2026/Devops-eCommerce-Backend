@@ -30,12 +30,12 @@
     "stripe": "^13.9.0",
     "uuid": "^9.0.1"
   },
-  "devDependencies": {
-    "jest": "^30.4.2",
-    "jest-circus": "^30.4.2"
-  },
   "jest": {
     "testEnvironment": "node",
     "clearMocks": true
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-circus": "^29.7.0"
   }
 }
