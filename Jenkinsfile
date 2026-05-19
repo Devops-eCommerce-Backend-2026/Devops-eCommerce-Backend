@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "devops-ecommerce-backend-app:latest"
+        IMAGE_NAME = "devops-ecommerce-backend-app:${BUILD_NUMBER}"
 
     }
 
