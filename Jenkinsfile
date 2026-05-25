@@ -15,12 +15,12 @@ pipeline {
             steps { cleanWs() }
         }
 
-        // stage('Clone Repository') {
-        //     steps {
-        //         git branch: 'main',
-        //             url: 'https://github.com/Devops-eCommerce-Backend-2026/Devops-eCommerce-Backend.git'
-        //     }
-        // }
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/Devops-eCommerce-Backend-2026/Devops-eCommerce-Backend.git'
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 sh 'npm ci'
