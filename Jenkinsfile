@@ -17,7 +17,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git branch: 'test',
+                git branch: 'main',
                     url: 'https://github.com/Devops-eCommerce-Backend-2026/Devops-eCommerce-Backend.git'
             }
         }
