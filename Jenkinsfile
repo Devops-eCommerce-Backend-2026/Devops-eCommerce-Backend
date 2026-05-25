@@ -1,13 +1,13 @@
 pipeline {
     agent any
-
-    environment {
-        IMAGE_NAME = "devops-ecommerce-backend-app:${BUILD_NUMBER}"
-
+    triggers {
+        githubPush()
     }
-
     tools {
-        nodejs 'nodejs18'  
+        nodejs 'NodeJS18'   
+    }
+    environment {
+        IMAGE_NAME = "jandzizjandy/ecommerce-backend:latest"
     }
 
     stages {
@@ -17,7 +17,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git branch: 'main',
+                git branch: 'test',
                     url: 'https://github.com/Devops-eCommerce-Backend-2026/Devops-eCommerce-Backend.git'
             }
         }
@@ -50,16 +50,8 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Kubernetes') {
-            steps {
-        sh """
-            kubectl set image deployment/backend-app \
-                backend-app=${IMAGE_NAME}
-            kubectl rollout status deployment/backend-app --timeout=120s
-        """
     }
-    }
-    }
+
     post {
         success { echo '✅ Build & Push thành công!' }
         failure { echo '❌ Pipeline thất bại!' }
