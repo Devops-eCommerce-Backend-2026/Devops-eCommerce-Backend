@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend-app
-        image: devops-ecommerce-backend-app:latest
+        image: jandzizjandy/ecommerce-backend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
