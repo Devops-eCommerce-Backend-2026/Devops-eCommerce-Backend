@@ -2,3 +2,4 @@
 /.env
 /demo.json
 secret.txt
+k8s-azure-tf/*
