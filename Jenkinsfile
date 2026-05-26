@@ -54,6 +54,9 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     sh """
+                        echo "Current directory: \$(pwd)"
+                        ls -la
+                        ls -la k8s-config
                         # Update image in deployment
                         sed -i 's|image: ${IMAGE_NAME}|image: ${IMAGE_NAME}|g' k8s-config/deployment.yaml
                         
