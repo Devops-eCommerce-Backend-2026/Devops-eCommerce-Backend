@@ -55,7 +55,7 @@ pipeline {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     sh """
                         # Update image in deployment
-                        sed -i 's|image: ${IMAGE_NAME}:.*|image: ${IMAGE_NAME}:latest|g' k8s-config/deployment.yaml
+                        sed -i 's|image: ${IMAGE_NAME}|image: ${IMAGE_NAME}|g' k8s-config/deployment.yaml
                         
                         # Apply all manifests in k8s-config folder
                         kubectl --kubeconfig=$KUBECONFIG apply -f k8s-config/
