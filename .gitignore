@@ -2,4 +2,8 @@
 /.env
 /demo.json
 secret.txt
-k8s-azure-tf/*
+k8s-azure-tf/terraform.tfstate
+k8s-azure-tf/terraform.tfstate.backup
+k8s-azure-tf/.terraform 
+k8s-azure-tf/.terraform.lock.hcl
+k8s-azure-tf/terraform.tfvars
