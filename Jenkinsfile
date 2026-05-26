@@ -62,10 +62,10 @@ pipeline {
                         kubectl --kubeconfig=$KUBECONFIG apply -f k8s-config/
                         
                         # Force pods to restart with new image
-                        kubectl --kubeconfig=$KUBECONFIG rollout restart deployment/ecommerce-backend
+                        kubectl --kubeconfig=$KUBECONFIG rollout restart deployment/backend-app
                         
                         # Wait for rollout to finish
-                        kubectl --kubeconfig=$KUBECONFIG rollout status deployment/ecommerce-backend
+                        kubectl --kubeconfig=$KUBECONFIG rollout status deployment/backend-app
                     """
                 }
             }
