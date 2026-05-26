@@ -56,7 +56,7 @@ spec:
       containers:
       - name: mongo-db
         image: mongo:6
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 27017
         livenessProbe:
