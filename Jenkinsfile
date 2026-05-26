@@ -50,6 +50,25 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh """
+                        # Update image in deployment
+                        sed -i 's|image: ${IMAGE_NAME}:.*|image: ${IMAGE_NAME}:latest|g' k8s-config/deployment.yaml
+                        
+                        # Apply all manifests in k8s-config folder
+                        kubectl --kubeconfig=$KUBECONFIG apply -f k8s-config/
+                        
+                        # Force pods to restart with new image
+                        kubectl --kubeconfig=$KUBECONFIG rollout restart deployment/ecommerce-backend
+                        
+                        # Wait for rollout to finish
+                        kubectl --kubeconfig=$KUBECONFIG rollout status deployment/ecommerce-backend
+                    """
+                }
+            }
+        }
     }
 
     post {
