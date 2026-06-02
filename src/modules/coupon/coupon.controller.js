@@ -47,7 +47,7 @@ const updateCoupon = catchAsyncError(async (req, res, next) => {
 
   updateCoupon && res.status(201).json({ message: "success", updateCoupon });
 
-  !updateCoupon && next(new AppError("Coupon was not found", 404));
+  !updateCoupon && next(new AppError("i cant find it", 404));
 });
 
 const deleteCoupon = deleteOne(couponModel, "Coupon");
